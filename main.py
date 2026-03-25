@@ -6,9 +6,8 @@ from mcp.server.stdio import stdio_server
 from mcp.types import Tool, TextContent
 import json
 
-WORDS = set("""understandings|understanding|conversations|disappearing|
-your|is|a|the|and|or|but|in|on|at|to|for|of|with|it|this|that""".replace("\n","").split("|"))
-
+import words
+WORDS = words.WORDS
 app = Server("word-checker")
 
 @app.list_tools()
@@ -16,7 +15,7 @@ async def list_tools() -> list[Tool]:
     return [
         Tool(
             name="check_words",
-            description="Check which words in a sentence are not in the allowed list",
+            description="returns words in the sentence that need to be replaced with simpler words, per the upgoer five word list",
             inputSchema={
                 "type": "object",
                 "properties": {
