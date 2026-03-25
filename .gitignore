@@ -1,0 +1,11 @@
+# Javascript specific
+.env
+.git/
+logs
+*.log
+npm-debug.log*
+node_modules
+# vscode workspace files are user-specific
+*.sublime-workspace
+# Folder config file
+Desktop.ini
