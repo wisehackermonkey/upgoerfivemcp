@@ -15,11 +15,11 @@ async def list_tools() -> list[Tool]:
     return [
         Tool(
             name="check_words",
-            description="returns words in the sentence that need to be replaced with simpler words, per the upgoer five word list",
+            description="returns words to be reworded according to the upgoer five word list",
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "sentence": {"type": "string", "description": "The sentence to check"}
+                    "sentence": {"type": "string", "description": "word to check"}
                 },
                 "required": ["sentence"]
             }
@@ -37,7 +37,7 @@ async def call_tool(name: str, arguments: dict):
     words = re.findall(r"[a-zA-Z']+", sentence.lower())
     failed = [w for w in words if w not in WORDS]
 
-    result = json.dumps({"failed": failed})
+    result = json.dumps({"to_replace": failed})
     return [TextContent(type="text", text=result)]
 
 async def main():
