@@ -9,3 +9,4 @@ node_modules
 *.sublime-workspace
 # Folder config file
 Desktop.ini
+uv.lock

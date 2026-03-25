@@ -19,8 +19,36 @@
 cd ~
 git clone https://github.com/wisehackermonkey/upgoerfivemcp.git
 cd upgoerfivemcp
-```
 
+uv install
+```
+# within lm studio edit mcp.json
+```
+{
+  "mcpServers": {
+    "word-checker": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:\\Users\\o\\github\\upgoerfivemcp",
+        "run",
+        "main.py"
+      ]
+    }
+  }
+}
+```
+note im using UV so replace it with this instead for normal python
+```
+{
+  "mcpServers": {
+    "word-checker": {
+      "command": "python",
+      "args": ["/path/to/word_checker_server.py"]
+    }
+  }
+}
+```
 # Summary
 ### -  *[Installation](#Installation)*
 <!-- ### -  *[Deveopment](#For-developers)* -->
