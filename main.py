@@ -4,7 +4,7 @@
 from mcp.server import Server
 from mcp.server.stdio import stdio_server
 from mcp.types import Tool, TextContent
-import json
+import re
 
 import words
 WORDS = words.WORDS
@@ -32,13 +32,15 @@ async def call_tool(name: str, arguments: dict):
         raise ValueError(f"Unknown tool: {name}")
 
     sentence = arguments["sentence"]
-    # Strip punctuation and lowercase
-    import re
-    words = re.findall(r"[a-zA-Z']+", sentence.lower())
-    failed = [w for w in words if w not in WORDS]
 
-    result = json.dumps({"to_replace": failed})
-    return [TextContent(type="text", text=result)]
+    def mark_word(match):
+        word = match.group(0)
+        if word.lower() not in WORDS:
+            return word + "❌"
+        return word
+
+    result = re.sub(r"[a-zA-Z']+", mark_word, sentence)
+    return [TextContent(type="text", text=f'"{result}"')]
 
 async def main():
     async with stdio_server() as (read_stream, write_stream):
